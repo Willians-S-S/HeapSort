@@ -16,7 +16,7 @@ void swap(struct Node* a, struct Node* b) {
 }
 
 // Função para transformar a lista em um heap máximo
-void heapify(struct Node* cabeca, struct Node* i) {
+void heapify(struct Node* i) {
     struct Node* maior = i;
     struct Node* esquerda = i->proximo;
     struct Node* direita = esquerda != NULL ? esquerda->proximo : NULL; // se esquerda for nulo direita recebe nulo, se não direita recebe o proximo de esquerda.
@@ -32,7 +32,7 @@ void heapify(struct Node* cabeca, struct Node* i) {
     // Se o maior elemento não é o pai, troca os elementos e chama a heapify recursivamente
     if (maior != i) {
         swap(i, maior);
-        heapify(cabeca, maior);
+        heapify(maior);
     }
 }
 
@@ -54,7 +54,7 @@ void heapSort(struct Node* cabeca) {
     for (struct Node* i = last; i != NULL; i = i->anterior) {
         swap(cabeca, i);
         //printf("%ld\n", i - cabeca);
-        heapify(cabeca, cabeca);
+        heapify(cabeca);
     }
 }
 
