@@ -43,8 +43,12 @@ void heapSort(struct Node* cabeca) {
     while (last->proximo != NULL)
         last = last->proximo;
 
-    for (struct Node* i = last->anterior; i != NULL; i = i->anterior)
-        heapify(cabeca, i);
+    // for (struct Node* i = last->anterior; i != NULL; i = i->anterior){
+    //     heapify(cabeca, i);
+    //     // printf("i = %d\n", i->numero);
+    //     // printf("cabeca = %d\n", cabeca->numero);
+    // }
+
 
     // Remove o elemento máximo do heap e restaura a propriedade do heap
     for (struct Node* i = last; i != NULL; i = i->anterior) {
@@ -93,6 +97,8 @@ int main() {
     cabeca = newNode(cabeca, 1);
     
     cabeca = newNode(cabeca, 9);
+
+    cabeca = newNode(cabeca, -1);
     
     printList(cabeca);
     printf("\n");
