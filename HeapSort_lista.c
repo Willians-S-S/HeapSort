@@ -9,14 +9,34 @@ struct Node {
 };
 
 // Função para trocar dois elementos da lista encadeada
-void swap(struct Node* a, struct Node* b) {
-    int temp = a->numero;
-    a->numero = b->numero;
-    b->numero = temp;
+void swap(struct Node* cabeca, struct Node* no) {
+    int temp = cabeca->numero;
+    cabeca->numero = no->numero;
+    no->numero = temp;
 }
 
 // Função para transformar a lista em um heap máximo
-void heapify(struct Node* i) {
+// void heapify(struct Node* cabeca) {
+//     struct Node* maior = cabeca;
+//     struct Node* esquerda = cabeca->proximo;
+//     struct Node* direita = esquerda != NULL ? esquerda->proximo : NULL; // se esquerda for nulo direita recebe nulo, se não direita recebe o proximo de esquerda.
+
+//     // Verifica se o filho esquerdo é maior que o pai
+//     if (esquerda != NULL && esquerda->numero < maior->numero)
+//         maior = esquerda;
+
+//     // Verifica se o filho direito é maior que o pai ou o filho esquerdo
+//     if (direita != NULL && direita->numero < maior->numero)
+//         maior = direita;
+
+//     // Se o maior elemento não é o pai, troca os elementos e chama a heapify recursivamente
+//     if (maior != cabeca) {
+//         swap(cabeca, maior);
+//         heapify(maior);
+//     }
+// }
+
+void heapify(struct Node* cabeca, struct Node* i) {
     struct Node* maior = i;
     struct Node* esquerda = i->proximo;
     struct Node* direita = esquerda != NULL ? esquerda->proximo : NULL; // se esquerda for nulo direita recebe nulo, se não direita recebe o proximo de esquerda.
@@ -32,7 +52,7 @@ void heapify(struct Node* i) {
     // Se o maior elemento não é o pai, troca os elementos e chama a heapify recursivamente
     if (maior != i) {
         swap(i, maior);
-        heapify(maior);
+        heapify(cabeca, maior);
     }
 }
 
@@ -43,19 +63,18 @@ void heapSort(struct Node* cabeca) {
     while (last->proximo != NULL)
         last = last->proximo;
 
-    // for (struct Node* i = last->anterior; i != NULL; i = i->anterior){
-    //     heapify(cabeca, i);
-    //     // printf("i = %d\n", i->numero);
-    //     // printf("cabeca = %d\n", cabeca->numero);
-    // }
+    for (struct Node* i = last->anterior; i != NULL; i = i->anterior){
+        heapify(cabeca, i);
+        // printf("i = %d\n", i->numero);
+        // printf("cabeca = %d\n", cabeca->numero);
+    }
 
 
     // Remove o elemento máximo do heap e restaura a propriedade do heap
-    for (struct Node* i = last; i != NULL; i = i->anterior) {
-        swap(cabeca, i);
-        //printf("%ld\n", i - cabeca);
-        heapify(cabeca);
-    }
+    // for (struct Node* no = last; no != NULL; no = no->anterior) {
+    //     swap(cabeca, no);
+    //     heapify(cabeca);
+    // }
 }
 
 // Função para imprimir a lista
@@ -89,15 +108,12 @@ struct Node* newNode(struct Node* lista, int numero) {
 // Exemplo de uso
 int main() {
     struct Node* cabeca = NULL;
+    cabeca = newNode(cabeca, 9);
     cabeca = newNode(cabeca,5);
     cabeca = newNode(cabeca, 2);
-    
     cabeca = newNode(cabeca, 7);
-    
     cabeca = newNode(cabeca, 1);
-    
     cabeca = newNode(cabeca, 9);
-
     cabeca = newNode(cabeca, -1);
     
     printList(cabeca);
