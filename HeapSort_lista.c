@@ -16,44 +16,23 @@ void swap(struct Node* cabeca, struct Node* no) {
 }
 
 // Função para transformar a lista em um heap máximo
-// void heapify(struct Node* cabeca) {
-//     struct Node* maior = cabeca;
-//     struct Node* esquerda = cabeca->proximo;
-//     struct Node* direita = esquerda != NULL ? esquerda->proximo : NULL; // se esquerda for nulo direita recebe nulo, se não direita recebe o proximo de esquerda.
-
-//     // Verifica se o filho esquerdo é maior que o pai
-//     if (esquerda != NULL && esquerda->numero < maior->numero)
-//         maior = esquerda;
-
-//     // Verifica se o filho direito é maior que o pai ou o filho esquerdo
-//     if (direita != NULL && direita->numero < maior->numero)
-//         maior = direita;
-
-//     // Se o maior elemento não é o pai, troca os elementos e chama a heapify recursivamente
-//     if (maior != cabeca) {
-//         swap(cabeca, maior);
-//         heapify(maior);
-//     }
-// }
-
-// Função para transformar a lista em um heap máximo
-void heapify(struct Node* cabeca, struct Node* i) {
-    struct Node* maior = i;
-    struct Node* esquerda = i->proximo;
-    struct Node* direita = esquerda != NULL ? esquerda->proximo : NULL; // se esquerda for nulo direita recebe nulo, se não direita recebe o proximo de esquerda. 
+void heapify(struct Node* posLista) {
+    struct Node* pai = posLista;
+    struct Node* filho_esquerda = posLista->proximo;
+    struct Node* filho_direita = filho_esquerda != NULL ? filho_esquerda->proximo : NULL; // se esquerda for nulo direita recebe nulo, se não direita recebe o proximo de esquerda. 
 
     // Verifica se o filho esquerdo é maior que o pai
-    if (esquerda != NULL && esquerda->numero > maior->numero)
-        maior = esquerda;
+    if (filho_esquerda != NULL && filho_esquerda->numero > pai->numero)
+        pai = filho_esquerda;
 
     // Verifica se o filho direito é maior que o pai ou o filho esquerdo
-    if (direita != NULL && direita->numero > maior->numero)
-        maior = direita;
+    if (filho_direita != NULL && filho_direita->numero > pai->numero)
+        pai = filho_direita;
 
     // Se o maior elemento não é o pai, troca os elementos e chama a heapify recursivamente
-    if (maior != i) {
-        swap(i, maior);
-        heapify(cabeca, maior);
+    if (pai != posLista) {
+        swap(posLista, pai);
+        heapify(pai);
     }
 }
 
@@ -65,16 +44,9 @@ void heapSort(struct Node* cabeca) {
         last = last->proximo;
 
     for (struct Node* i = last->anterior; i != NULL; i = i->anterior){
-        heapify(cabeca, i);
+        heapify(i);
     }
 }
-
-
-    // Remove o elemento máximo do heap e restaura a propriedade do heap
-    // for (struct Node* no = last->anterior; no != NULL; no = no->anterior) {
-    //     swap(cabeca, no);
-    //     heapify(cabeca, no);
-    // }
 
 // Função para imprimir a lista
 void printList(struct Node* cabeca) {
