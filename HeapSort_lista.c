@@ -11,10 +11,10 @@ struct node {
 typedef struct node Node;
 
 // Função para trocar dois elementos da lista encadeada
-void swap(Node* cabeca, Node* no) {
-    int temp = cabeca->numero;
-    cabeca->numero = no->numero;
-    no->numero = temp;
+void swap(Node* posLista, Node* pai) {
+    int temp = posLista->numero;
+    posLista->numero = pai->numero;
+    pai->numero = temp;
 }
 
 // Função para transformar a lista em um heap máximo
