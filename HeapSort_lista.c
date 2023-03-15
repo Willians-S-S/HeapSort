@@ -2,24 +2,26 @@
 #include <stdlib.h>
 
 // Estrutura de um nó da lista encadeada
-struct Node {
+struct node {
     int numero;
-    struct Node* proximo;
-    struct Node* anterior;
+    struct node* proximo;
+    struct node* anterior;
 };
 
+typedef struct node Node;
+
 // Função para trocar dois elementos da lista encadeada
-void swap(struct Node* cabeca, struct Node* no) {
+void swap(Node* cabeca, Node* no) {
     int temp = cabeca->numero;
     cabeca->numero = no->numero;
     no->numero = temp;
 }
 
 // Função para transformar a lista em um heap máximo
-void heapify(struct Node* posLista) {
-    struct Node* pai = posLista;
-    struct Node* filho_esquerda = posLista->proximo;
-    struct Node* filho_direita = filho_esquerda != NULL ? filho_esquerda->proximo : NULL; // se esquerda for nulo direita recebe nulo, se não direita recebe o proximo de esquerda. 
+void heapify(Node* posLista) {
+    Node* pai = posLista;
+    Node* filho_esquerda = posLista->proximo;
+    Node* filho_direita = filho_esquerda != NULL ? filho_esquerda->proximo : NULL; // se esquerda for nulo direita recebe nulo, se não direita recebe o proximo de esquerda. 
 
     // Verifica se o filho esquerdo é maior que o pai
     if (filho_esquerda != NULL && filho_esquerda->numero > pai->numero)
@@ -37,20 +39,20 @@ void heapify(struct Node* posLista) {
 }
 
 // Função para ordenar a lista usando o heapSort
-void heapSort(struct Node* cabeca) {
+void heapSort(Node* cabeca) {
     
-    struct Node* last = cabeca;
+    Node* last = cabeca;
     while (last->proximo != NULL)
         last = last->proximo;
 
-    for (struct Node* i = last->anterior; i != NULL; i = i->anterior){
+    for (Node* i = last->anterior; i != NULL; i = i->anterior){
         heapify(i);
     }
 }
 
 // Função para imprimir a lista
-void printList(struct Node* cabeca) {
-    struct Node* current = cabeca;
+void printList(Node* cabeca) {
+    Node* current = cabeca;
     while (current != NULL) {
         printf("%d ", current->numero);
         current = current->proximo;
@@ -59,15 +61,15 @@ void printList(struct Node* cabeca) {
 }
 
 // Função para criar um novo nó da lista
-struct Node* newNode(struct Node* lista, int numero) {
-    struct Node* node = (struct Node*) malloc(sizeof(struct Node));
+Node* newNode(Node* lista, int numero) {
+    Node* node = (Node*) malloc(sizeof(Node));
     node->numero = numero;
     node->proximo = NULL;
     node->anterior = NULL;
 
     if(!lista) return node;
 
-    struct Node* aux = lista;
+    Node* aux = lista;
     while(aux->proximo) aux = aux->proximo;
 
     node->anterior = aux;
@@ -78,7 +80,7 @@ struct Node* newNode(struct Node* lista, int numero) {
 
 // Exemplo de uso
 int main() {
-    struct Node* cabeca = NULL;
+    Node* cabeca = NULL;
     cabeca = newNode(cabeca, 9);
     cabeca = newNode(cabeca,5);
     cabeca = newNode(cabeca, 2);
