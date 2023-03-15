@@ -36,17 +36,18 @@ void swap(struct Node* cabeca, struct Node* no) {
 //     }
 // }
 
+// Função para transformar a lista em um heap máximo
 void heapify(struct Node* cabeca, struct Node* i) {
     struct Node* maior = i;
     struct Node* esquerda = i->proximo;
-    struct Node* direita = esquerda != NULL ? esquerda->proximo : NULL; // se esquerda for nulo direita recebe nulo, se não direita recebe o proximo de esquerda.
+    struct Node* direita = esquerda != NULL ? esquerda->proximo : NULL; // se esquerda for nulo direita recebe nulo, se não direita recebe o proximo de esquerda. 
 
     // Verifica se o filho esquerdo é maior que o pai
-    if (esquerda != NULL && esquerda->numero < maior->numero)
+    if (esquerda != NULL && esquerda->numero > maior->numero)
         maior = esquerda;
 
     // Verifica se o filho direito é maior que o pai ou o filho esquerdo
-    if (direita != NULL && direita->numero < maior->numero)
+    if (direita != NULL && direita->numero > maior->numero)
         maior = direita;
 
     // Se o maior elemento não é o pai, troca os elementos e chama a heapify recursivamente
@@ -58,24 +59,22 @@ void heapify(struct Node* cabeca, struct Node* i) {
 
 // Função para ordenar a lista usando o heapSort
 void heapSort(struct Node* cabeca) {
-    // Transforma a lista em um heap máximo
+    
     struct Node* last = cabeca;
     while (last->proximo != NULL)
         last = last->proximo;
 
     for (struct Node* i = last->anterior; i != NULL; i = i->anterior){
         heapify(cabeca, i);
-        // printf("i = %d\n", i->numero);
-        // printf("cabeca = %d\n", cabeca->numero);
     }
+}
 
 
     // Remove o elemento máximo do heap e restaura a propriedade do heap
-    // for (struct Node* no = last; no != NULL; no = no->anterior) {
+    // for (struct Node* no = last->anterior; no != NULL; no = no->anterior) {
     //     swap(cabeca, no);
-    //     heapify(cabeca);
+    //     heapify(cabeca, no);
     // }
-}
 
 // Função para imprimir a lista
 void printList(struct Node* cabeca) {

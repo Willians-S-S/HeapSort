@@ -1,12 +1,31 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Existem dois tipos de heap
+// I. heap máximo
+// II. heap mínimo
+
 // Função para trocar dois elementos do array
 void swap(int arr[], int i, int j) {
     int temp = arr[i];
     arr[i] = arr[j];
     arr[j] = temp;
 }
+
+
+// A função heapify é usada para transformar um array em um heap, que é uma estrutura de dados que se organiza como
+// uma árvore binária em que cada elemento pode ter um filho esquerdo e direito, e o menor (ou maior) elemento fica no
+// topo1. A função recebe três parâmetros: arr[], que é o array a ser transformado em heap; n, que é o tamanho do array; 
+// e i, que é o índice do elemento pai que será comparado com seus filhos.
+
+// A função faz o seguinte:
+
+// Define a variável largest como i, ou seja, assume que o elemento pai é o maior (se for um max-heap) ou menor (se for um min-heap) entre ele e seus filhos.
+// Define as variáveis left e right como os índices dos filhos esquerdo e direito do elemento pai, usando a fórmula 2i + 1 para o esquerdo e 2i + 2 para o direito2.
+// Verifica se o filho esquerdo existe (ou seja, se left < n) e se ele é maior (ou menor) que o elemento pai (ou seja, se arr[left] > arr[largest]). Se for verdadeiro, atualiza a variável largest com o valor de left.
+// Verifica se o filho direito existe (ou seja, se right < n) e se ele é maior (ou menor) que o elemento pai ou o filho esquerdo (ou seja, se arr[right] > arr[largest]). Se for verdadeiro, atualiza a variável largest com o valor de right.
+
+// Se a variável largest não for igual a i, significa que houve uma troca entre o elemento pai e um dos filhos. Nesse caso, chama a função swap para trocar os elementos no array e chama a função heapify recursivamente para verificar se há mais trocas necessárias na subárvore abaixo do elemento trocado.
 
 // Função para transformar o array em um heap máximo
 void heapify(int arr[], int n, int i) {
@@ -36,10 +55,10 @@ void heapSort(int arr[], int n) {
         heapify(arr, n, i);
 
     // Remove o elemento máximo do heap e restaura a propriedade do heap
-    for (int i = n-1; i >= 0; i--) {
-        swap(arr, 0, i);
-        heapify(arr, i, 0);
-    }
+    // for (int i = n-1; i >= 0; i--) {
+    //     swap(arr, 0, i);
+    //     heapify(arr, i, 0);
+    // }
 }
 
 // Exemplo de uso
