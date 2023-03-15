@@ -6,10 +6,10 @@
 // II. heap mínimo
 
 // Função para trocar dois elementos do array
-void swap(int arr[], int i, int j) {
-    int temp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = temp;
+void swap(int vetor[], int pos, int pai) {
+    int temp = vetor[pos];
+    vetor[pos] = vetor[pai];
+    vetor[pai] = temp;
 }
 
 
